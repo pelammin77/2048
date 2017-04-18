@@ -1,4 +1,11 @@
 
+  /* 
+         File: game.ts/js
+         Author: Petri Lamminaho
+         Simmpe 2048 game clone  
+         Made  winter 2017
+   
+  */ 
    const palanKoko = 100;
    let voiLiikkua : boolean = false;
    let groupTilet : any;
@@ -8,6 +15,7 @@
    let topScore: number;
    let  palatTaulu : Array<number>;
    let localStorageKaytossa: boolean;
+
    let varit = {
 					2:0xFFFFFF,
 					4:0xFFEEEE,
@@ -96,42 +104,39 @@
 
     }
 
-lisaaTile(){
-
-        do{
-		    var randomValue = Math.floor(Math.random()*16);
-			} while (palatTaulu[randomValue]!=0)
-            palatTaulu[randomValue]=2;
-            var tile = game.add.sprite(palautaSarake(randomValue)*palanKoko,palautaRivi(randomValue)*palanKoko,"tile");
-					// creation of a custom property "pos" and assigning it the index of the newly added "2"
-					tile.pos = randomValue;
-					// at the beginning the tile is completely transparent
-					tile.alpha=0;
-
-                    // creation of a text which will represent the value of the tile
-					var text = game.add.text(palanKoko/2,palanKoko/2,"2",{font:"bold 36px Arial",align:"center"});
-                    // setting text anchor in the horizontal and vertical center
-
-                    tile.value = 2;
-                    text.anchor.set(0.5);
-					// adding the text as a child of tile sprite
-					tile.addChild(text);
-					// adding tile sprites to the group
-					groupTilet.add(tile);
-					// creation of a new tween for the tile sprite
-					var fadeIn = game.add.tween(tile);
-					// the tween will make the sprite completely opaque in 250 milliseconds
-					fadeIn.to({alpha:1},250);
-					// tween callback
-					fadeIn.onComplete.add(function(){
-						muutaTilenArvo();
-                        // updating tile numbers. This is not necessary the 1st time, anyway
-						// now piece can move
-						voiLiikkua=true;
-					})
-					// starting the tween
-					fadeIn.start();
-                    tileja++
+    lisaaTile(){
+       do{
+		var randomValue = Math.floor(Math.random()*16);
+	  }while (palatTaulu[randomValue]!=0)
+        palatTaulu[randomValue]=2;
+        var tile = game.add.sprite(palautaSarake(randomValue)*palanKoko,palautaRivi(randomValue)*palanKoko,"tile");
+	// creation of a custom property "pos" and assigning it the index of the newly added "2"
+	    tile.pos = randomValue;
+	// at the beginning the tile is completely transparent
+	    tile.alpha=0;
+    // creation of a text which will represent the value of the tile
+	    var text = game.add.text(palanKoko/2,palanKoko/2,"2",{font:"bold 36px Arial",align:"center"});
+    // setting text anchor in the horizontal and vertical center
+        tile.value = 2;
+        text.anchor.set(0.5);
+	// adding the text as a child of tile sprite
+	    tile.addChild(text);
+	// adding tile sprites to the group
+	    groupTilet.add(tile);
+	// creation of a new tween for the tile sprite
+	    var fadeIn = game.add.tween(tile);
+	// the tween will make the sprite completely opaque in 250 milliseconds
+	    fadeIn.to({alpha:1},250);
+		// tween callback
+		fadeIn.onComplete.add(function(){
+		muutaTilenArvo();
+        // updating tile numbers. This is not necessary the 1st time, anyway
+		// now piece can move
+		voiLiikkua=true;
+	    })
+	    // starting the tween
+		fadeIn.start();
+        tileja++
         	}
 
    liikutaYlos(){
